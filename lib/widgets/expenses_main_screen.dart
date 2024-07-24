@@ -1,3 +1,4 @@
+import 'package:expense_tracker/widgets/chart/chart.dart';
 import 'package:expense_tracker/widgets/expenses_list/create_expense.dart';
 import 'package:expense_tracker/widgets/expenses_list/expenses_list_view.dart';
 import 'package:expense_tracker/model/expense_model.dart';
@@ -12,20 +13,7 @@ class ExpensesMainScreen extends StatefulWidget {
 }
 
 class _ExpensesMainScreen extends State<ExpensesMainScreen> {
-  final List<ExpenseModel> _registeredexpenses = [
-    ExpenseModel(
-      title: "Flutter Course",
-      amount: 10000,
-      date: DateTime.now(),
-      category: Category.work,
-    ),
-    ExpenseModel(
-      title: "Burger",
-      amount: 1000,
-      date: DateTime.now(),
-      category: Category.food,
-    ),
-  ];
+  final List<ExpenseModel> _registeredexpenses = [];
 
   void _addExpense(ExpenseModel expense) {
     setState(() {
@@ -68,7 +56,7 @@ class _ExpensesMainScreen extends State<ExpensesMainScreen> {
   @override
   Widget build(BuildContext context) {
     Widget maincontent = const Center(
-      child: Text("No Expense Found,Add some expenses"),
+      child: Text("No Expense Found ¯\\(◉◡◔)/¯,Add some expenses"),
     );
 
     if (_registeredexpenses.isNotEmpty) {
@@ -77,23 +65,30 @@ class _ExpensesMainScreen extends State<ExpensesMainScreen> {
     }
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(255, 224, 114, 41),
         title: const Text(
-          "Expenses Tracker",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          "Expenses  Tracker",
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              letterSpacing: 3,
+              color: Colors.white),
         ),
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
+            hoverColor: Colors.grey,
+            enableFeedback: true,
             icon: const Icon(
               Icons.add,
               color: Colors.white,
+              size: 30,
             ),
           ),
         ],
       ),
       body: Column(
         children: [
-          const Text("this is chart"),
+          Chart(expenses: _registeredexpenses),
           Expanded(child: maincontent),
         ],
       ),

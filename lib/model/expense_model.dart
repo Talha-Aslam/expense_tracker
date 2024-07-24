@@ -12,7 +12,7 @@ const categoryIcons = {
   Category.food: Icons.dining_outlined,
   Category.leisure: Icons.local_activity_outlined,
   Category.work: Icons.work_outline,
-  Category.travel: Icons.flight_outlined,
+  Category.travel: Icons.flight_takeoff_rounded,
 };
 
 class ExpenseModel {

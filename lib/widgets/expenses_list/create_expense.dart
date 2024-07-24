@@ -38,14 +38,23 @@ class _CreateExpenseState extends State<CreateExpense> {
       showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: const Text('Invalid Input'),
-          content: const Text("One of the Following entity is Invalid or Null"),
+          title: const Text(
+            'Invalid Input',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          content:
+              const Text("One of the Following entity is Invalid or Null!"),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.pop(ctx);
               },
-              child: const Text("Okay"),
+              child: const Text(
+                "Okay",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
           ],
         ),
@@ -71,14 +80,17 @@ class _CreateExpenseState extends State<CreateExpense> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 50, 16, 16),
+      padding: const EdgeInsets.fromLTRB(16, 50, 16, 20),
       child: Column(
         children: [
           TextField(
             controller: _titleController,
             maxLength: 50,
             decoration: const InputDecoration(
-              label: Text("Title"),
+              label: Text(
+                "Title",
+                style: TextStyle(color: Color.fromARGB(255, 224, 114, 41)),
+              ),
             ),
           ),
           Row(
@@ -87,7 +99,11 @@ class _CreateExpenseState extends State<CreateExpense> {
               Expanded(
                 child: TextField(
                   decoration: const InputDecoration(
-                    label: Text("Amount"),
+                    label: Text(
+                      "Amount",
+                      style:
+                          TextStyle(color: Color.fromARGB(255, 224, 114, 41)),
+                    ),
                     prefixText: '\$ ',
                   ),
                   keyboardType: TextInputType.number,
@@ -100,11 +116,13 @@ class _CreateExpenseState extends State<CreateExpense> {
                   children: [
                     Text(
                       _selectedDate == null
-                          ? "No Date Selected"
+                          ? "Select Date"
                           : formater.format(_selectedDate!),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 224, 114, 41)),
                     ),
                     const SizedBox(
-                      width: 10,
+                      width: 3,
                     ),
                     IconButton(
                       onPressed: _presentDatePicker,
@@ -128,7 +146,9 @@ class _CreateExpenseState extends State<CreateExpense> {
                 items: Category.values.map((category) {
                   return DropdownMenuItem(
                     value: category,
-                    child: Text(category.name.toUpperCase()),
+                    child: Text(category.name.toUpperCase(),
+                        style: const TextStyle(
+                            color: Color.fromARGB(255, 224, 114, 41))),
                   );
                 }).toList(),
                 onChanged: (value) {
@@ -152,7 +172,13 @@ class _CreateExpenseState extends State<CreateExpense> {
                 child: const Text("Save"),
               ),
             ],
-          )
+          ),
+          const Spacer(),
+          Image.asset(
+            "assets/images/accounting.png",
+            height: 200,
+            alignment: Alignment.center,
+          ),
         ],
       ),
     );
