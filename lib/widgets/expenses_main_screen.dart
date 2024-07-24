@@ -27,20 +27,60 @@ class _ExpensesMainScreen extends State<ExpensesMainScreen> {
     ),
   ];
 
+  void _addExpense(ExpenseModel expense) {
+    setState(() {
+      _registeredexpenses.add(expense);
+    });
+  }
+
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
-        context: context, builder: (ctx) => const CreateExpense());
+      isScrollControlled: true,
+      context: context,
+      builder: (ctx) => CreateExpense(
+        onAddExpense: _addExpense,
+      ),
+    );
+  }
+
+  void _removeexpense(ExpenseModel expense) {
+    final expenseindex = _registeredexpenses.indexOf(expense);
+    setState(() {
+      _registeredexpenses.remove(expense);
+    });
+
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Expense Deleted'),
+        duration: const Duration(seconds: 3),
+        action: SnackBarAction(
+            label: "Undo",
+            onPressed: () {
+              setState(() {
+                _registeredexpenses.insert(expenseindex, expense);
+              });
+            }),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget maincontent = const Center(
+      child: Text("No Expense Found,Add some expenses"),
+    );
+
+    if (_registeredexpenses.isNotEmpty) {
+      maincontent = ExpensesListView(
+          onRemoveExpense: _removeexpense, expense: _registeredexpenses);
+    }
     return Scaffold(
       appBar: AppBar(
         title: const Text(
           "Expenses Tracker",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: Color.fromARGB(255, 150, 116, 193),
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
@@ -54,7 +94,7 @@ class _ExpensesMainScreen extends State<ExpensesMainScreen> {
       body: Column(
         children: [
           const Text("this is chart"),
-          Expanded(child: ExpensesListView(expense: _registeredexpenses)),
+          Expanded(child: maincontent),
         ],
       ),
     );
