@@ -47,7 +47,7 @@ class ExpensesItems extends StatelessWidget {
                         expense.formatedate,
                       ),
                     ],
-                  )
+                  ),
                 ],
               ),
             ],

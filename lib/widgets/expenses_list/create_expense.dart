@@ -5,6 +5,7 @@ class CreateExpense extends StatefulWidget {
   const CreateExpense({super.key, required this.onAddExpense});
 
   final void Function(ExpenseModel expense) onAddExpense;
+
   @override
   State<CreateExpense> createState() {
     return _CreateExpenseState();
@@ -79,6 +80,7 @@ class _CreateExpenseState extends State<CreateExpense> {
 
   @override
   Widget build(BuildContext context) {
+    // final keyboardspace = MediaQuery.of(context).viewInsets.bottom;
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 50, 16, 20),
       child: Column(
@@ -145,11 +147,10 @@ class _CreateExpenseState extends State<CreateExpense> {
                 icon: const Icon(Icons.arrow_drop_down_circle_outlined),
                 items: Category.values.map((category) {
                   return DropdownMenuItem(
-                    value: category,
-                    child: Text(category.name.toUpperCase(),
-                        style: const TextStyle(
-                            color: Color.fromARGB(255, 224, 114, 41))),
-                  );
+                      value: category,
+                      child: Text(category.name.toUpperCase(),
+                          style: const TextStyle(
+                              color: Color.fromARGB(255, 224, 114, 41))));
                 }).toList(),
                 onChanged: (value) {
                   setState(() {
